@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>ssd assignment</title>
+      <script type="text/javascript" src="//platform.linkedin.com/in.js">
+         api_key: 81knfou24s8qil
+
+         authorize: true
+         onLoad: onLinkedInLoad
+         scope: r_basicprofile r_emailaddress
+      </script>
+      <script src="../static/js/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript">
+         // load LinkedIn account adta after oath complete
+         function onLinkedInLoad() {
+             IN.Event.on(IN, "auth", accessUserDetails);
+         }
+
+         //get user's profile data by API call wrapper
+         function accessUserDetails() {
+             IN.API.Profile("me").fields("id", "first-name",
+                 "last-name", "headline", "location", "picture-url",
+                 "public-profile-url", "email-address").result(loadUserData).error(onError);
+         }
+
+         // displaying user information
+         function loadUserData(data) {
+             var user = data.values[0];
+             document.getElementById("picture").innerHTML = '<img src="' + user.pictureUrl + '" />';
+             document.getElementById("name").innerHTML = user.firstName + ' ' + user.lastName;
+             document.getElementById("bio").innerHTML = user.headline;
+             document.getElementById("email").innerHTML = user.emailAddress;
+             document.getElementById("location").innerHTML = user.location.name;
+             document.getElementById("link").innerHTML = '<a href="' + user.publicProfileUrl + '" target="_blank">Visit profile</a>';
+             document.getElementById('profileData').style.display = 'block';
+             document.getElementById('button1').style.display = 'none';
+             console.log("code:");
+
+         }
+         // error handler
+         function onError(error) {
+             console.log(error);
+         }
+
+         // logout from the LinkedIn account
+         function logout() {
+             IN.User.logout(logoutProfile);
+             document.getElementById('button1').style.display = 'block';
+         }
+
+         // Clear profile informations
+         function logoutProfile() {
+             document.getElementById('profileData').remove();
+         }
+
+      </script>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!--===============================================================================================-->
+      <link rel="icon" type="image/png" href="../static/images/icons/favicon.ico"/>
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/vendor/animate/animate.css">
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/vendor/animsition/css/animsition.min.css">
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/vendor/select2/select2.min.css">
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/vendor/daterangepicker/daterangepicker.css">
+      <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="../static/css/util.css">
+      <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+      <!--===============================================================================================-->
+   </head>
+   <body>
+      <div   class="limiter">
+         <div class="container-login100">
+            <div class="wrap-login100">
+               <form class="login100-form validate-form">
+                  <span class="login100-form-title p-b-34">
+                     <script type="in/Login"></script>
+                  </span>
+                  <div id="button1" align="center" style="opacity: 0.7;
+                     filter: alpha(opacity=70);
+                     padding: 20px;background-color: white">
+                  </div>
+                  {#    data loading div#}
+                  <div id="profileData" style="display: none;">
+                     <div class="form">
+               <form>
+               <div id="picture"></div>
+               <br>
+               <br>
+               <div class="info">
+               <h1 id="name"></h1>
+               <h2 id="bio"></h2>
+               <h2 id="email"></h2>
+               <h2 id="location"></h2>
+               <p id="link"></p>
+               <p>Share this video on your LinkedIn profile<br>
+               <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+               <script type="IN/Share" data-url="https://www.youtube.com/watch?v=CPbvxxslDTU"></script>
+               </p>
+               </div>
+               <br>
+               <br>
+               <p><a class="btn btn-primary" data-toggle="collapse" role="button" aria-expanded="false"
+                  aria-controls="collapseExample" href="javascript:void(0);" onclick="logout()">Logout</a></p>
+               </form>
+               </div>
+               </div>
+               </form>
+               <div class="login100-more" style="background-image: url('../static/images/background.jpeg');"></div>
+            </div>
+         </div>
+      </div>
+      <div id="dropDownSelect1"></div>
+      <!--===============================================================================================-->
+      <script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+      <!--===============================================================================================-->
+      <script src="../static/vendor/animsition/js/animsition.min.js"></script>
+      <!--===============================================================================================-->
+      <script src="../static/vendor/bootstrap/js/popper.js"></script>
+      <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+      <!--===============================================================================================-->
+      <script src="../static/vendor/select2/select2.min.js"></script>
+      <script>
+         $(".selection-2").select2({
+         	minimumResultsForSearch: 20,
+         	dropdownParent: $('#dropDownSelect1')
+         });
+      </script>
+      <!--===============================================================================================-->
+      <script src="../static/vendor/daterangepicker/moment.min.js"></script>
+      <script src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+      <!--===============================================================================================-->
+      <script src="../static/vendor/countdowntime/countdowntime.js"></script>
+      <!--===============================================================================================-->
+      <script src="../static/js/main.js"></script>
+   </body>
+</html>
